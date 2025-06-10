@@ -1,14 +1,14 @@
-const navbar = document.querySelector(".navbar_component");
-const logo = document.querySelector(".navbar_logo-link");
-const lines = document.querySelectorAll(".menu-icon_line-top, .menu-icon_line-middle, .menu-icon_line-bottom");
+const elementsToToggle = [
+  ".navbar_component",
+  ".navbar_logo-link", 
+  ".menu-icon_line-top",
+  ".menu-icon_line-middle",
+  ".menu-icon_line-bottom"
+];
+
+const elements = elementsToToggle.map(selector => document.querySelector(selector));
 
 window.addEventListener("scroll", () => {
-  const scrolled = window.scrollY > 20;
-
-  navbar.classList.toggle("navbar-scrolled", scrolled);
-  logo.classList.toggle("navbar-scrolled", scrolled);
-
-  lines.forEach(line => {
-    line.classList.toggle("navbar-scrolled", scrolled);
-  });
+  const action = window.scrollY > 20 ? "add" : "remove";
+  elements.forEach(element => element?.classList[action]("navbar-scrolled"));
 });
