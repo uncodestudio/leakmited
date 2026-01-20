@@ -4,7 +4,7 @@ new Splide('.slider', {
     focus: 'right', // 0 = left and 'center' = center
     type: 'slide', // 'loop' or 'slide'
     gap: '1.5rem', // space between slides
-    arrows: false, // 'slider' or false
+    arrows: true, // 'slider' or false
     pagination: false, // 'slider' or false
     speed: 600, // transition speed in miliseconds
     dragAngleThreshold: 30, // default is 30
