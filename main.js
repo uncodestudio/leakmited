@@ -1,69 +1,53 @@
 // main.js
-import './styles/scrollAnimations.css'
-import './styles/logoFade.css'
+import { init as initUtm } from './modules/utmCaptation.js'
+initUtm()
+
 const moduleDetectors = {
-  scrollAnimations: {
-    selector: '[fade-in-scroll]',
-    initFn: () => import('./modules/scrollAnimations.js').then(m => m.init())
+  accordeonAnimation: {
+    selector: '.accordion_wrapper',
+    initFn: () => import('./modules/accordeonAnimation.js').then(m => m.init())
   },
-  horizontalParallax: {
-    selector: '.product-marketplace_products-wrapper',
-    initFn: () => import('./modules/horizontalParallax.js').then(m => m.init())
+  activeStateRecrutement: {
+    selector: '.recrutement-radio_field',
+    initFn: () => import('./modules/activeStateRecrutement.js').then(m => m.init())
   },
-  horizontalParallaxHeader: {
-    selector: '.header-marketplace_products-wrapper',
-    initFn: () => import('./modules/horizontalParallax.js').then(m => m.init())
+  cardHover: {
+    selector: '.solution_list-item',
+    initFn: () => import('./modules/cardHover.js').then(m => m.init())
   },
-  horizontalParallaxPadel: {
-    selector: '.padel-tour-header_image-list',
-    initFn: () => import('./modules/horizontalParallax.js').then(m => m.init())
+  cardTestimonies: {
+    selector: '.testimonies-slide',
+    initFn: () => import('./modules/cardTestimonies.js').then(m => m.init())
   },
-  pricingToggle: {
-    selector: '.home-pricing_toggle-layout',
-    initFn: () => import('./modules/pricingToggle.js').then(m => m.init())
+  countItem: {
+    selector: '[count-item="counters"]',
+    initFn: () => import('./modules/countItem.js').then(m => m.init())
   },
-  teamHover: {
-    selector: '.equipe_item',
-    initFn: () => import('./modules/teamHover.js').then(m => m.init())
-  },
-  faqAccordion: {
+  faqAnimation: {
     selector: '.faq_accordion',
-    initFn: () => import('./modules/faqAccordion.js').then(m => m.init())
+    initFn: () => import('./modules/faqAnimation.js').then(m => m.init())
   },
-  testimoniesParallax: {
-    selector: '.testimonies-anim_9rem',
-    initFn: () => import('./modules/testimoniesParallax.js').then(m => m.init())
+  navbarScrolled: {
+    selector: '.navbar_component',
+    initFn: () => import('./modules/navbarScrolled.js').then(m => m.init())
   },
-
-  testimoniesCarousel: {
-    selector: '.home-loyalty_testimonies-list-item',
-    initFn: () => import('./modules/testimoniesCarousel.js').then(m => m.init())
+  splideBlog: {
+    selector: '.slider',
+    initFn: () => import('./modules/splideBlog.js').then(m => m.init())
   },
-  // exemple:
-  // myModule: {
-  //   selector: '.my-selector',
-  //   initFn: initMyModule
-  // }
+  copyToClipboard: {
+    selector: '.infos-press_short-layout',
+    initFn: () => import('./modules/copyToClipboard.js').then(m => m.init())
+  },
+  testimonialsAnimation: {
+    selector: '.testimonial-avatar',
+    initFn: () => import('./modules/testimonialsAnimation.js').then(m => m.init())
+  },
 }
-
-let modulesLoaded = 0
-let modulesSkipped = 0
 
 Object.keys(moduleDetectors).forEach((moduleName) => {
   const config = moduleDetectors[moduleName]
-  const elementExists = document.querySelector(config.selector)
-
-  if (elementExists) {
-    console.log(`📦 Init ${moduleName}...`)
-    try {
-      config.initFn()
-      modulesLoaded++
-    } catch (error) {
-      console.error(`❌ Erreur ${moduleName}:`, error)
-    }
-  } else {
-    modulesSkipped++
+  if (document.querySelector(config.selector)) {
+    config.initFn().catch(err => console.error(`❌ ${moduleName}:`, err))
   }
 })
-
-console.log(`✅ ${modulesLoaded} module(s) chargé(s), ${modulesSkipped} skippé(s)`)
